@@ -1,7 +1,10 @@
 // src/api.js
+import axios from 'axios';
 
-// Dynamically use the Backend URL from environment variables
-const backendBaseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+});
 
-// Export this to use in your components like: <img src={`${MEDIA_URL}${project.image}`} />
-export const MEDIA_URL = backendBaseURL;
+export const MEDIA_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+
+export default api; // 👈 ADD THIS LINE
