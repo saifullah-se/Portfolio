@@ -3,14 +3,11 @@ services:
   - type: web
     name: portfolio-backend
     env: python
-    buildCommand: |
-      cd portfolio-backend
-      pip install -r requirements.txt
-      python manage.py collectstatic --no-input
-      python manage.py migrate
-    startCommand: |
-      cd portfolio-backend
-      gunicorn portfolio_backend.wsgi:application
+    # UPDATED: Use the build script instead of multiline commands
+    buildCommand: ./build.sh
+    # UPDATED: Ensure gunicorn points to your wsgi file
+    startCommand: gunicorn portfolio_backend.wsgi:application
+    rootDir: portfolio-backend
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -20,23 +17,5 @@ services:
         generateValue: true
       - key: DEBUG
         value: "False"
-
-  # Frontend Service
-  - type: web
-    name: portfolio-frontend
-    env: static
-    buildCommand: |
-      cd portfolio-frontend
-      npm install
-      npm run build
-    publishPath: portfolio-frontend/dist
-    envVars:
-      - key: VITE_API_BASE_URL
-        fromStack:
-          type: web
-          name: portfolio-backend
-          property: url
-
-databases:
-  - name: portfolio_db
-    plan: free
+      - key: PYTHON_VERSION
+        value: "3.11.0" # Match your local version to avoid compatibility issues
