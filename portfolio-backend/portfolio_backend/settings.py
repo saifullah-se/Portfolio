@@ -6,12 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-dev-key')
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
-ALLOWED_HOSTS = [
-    'portfolio-backend.onrender.com', 
-    'localhost', 
-    '127.0.0.1',
-    '.onrender.com' # This covers all Render subdomains
-]
+ALLOWED_HOSTS = ['portfolio-backend-p52b.onrender.com', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -119,3 +114,19 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 APPEND_SLASH = True
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# 2. Force HTTPS for all cookies
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+
+# 3. Handle the 'onrender' domain explicitly
+CSRF_TRUSTED_ORIGINS = [
+    'https://portfolio-backend-p52b.onrender.com',
+]
+
+# 4. Critical: Ensure the session engine is standard
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
