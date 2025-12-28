@@ -1,10 +1,12 @@
-// src/api.js
 import axios from 'axios';
 
+// Temporarily hardcode the live URL to bypass any Env Var issues
+const baseURL = 'https://saifullah-portfolio-b.up.railway.app'; 
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+  baseURL: `${baseURL}/api/`
 });
 
-export const MEDIA_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+export const MEDIA_URL = baseURL;
 
-export default api; // 👈 ADD THIS LINE
+export default api;
