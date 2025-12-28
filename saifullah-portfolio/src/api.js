@@ -1,11 +1,8 @@
-// src/api.js
 import axios from 'axios';
 
-// FORCE the live URL here
-const baseURL = 'https://saifullah-portfolio-b.up.railway.app'; 
-
+// Change this line directly to your Railway URL
 const api = axios.create({
-  baseURL: `${baseURL}/api/`
+  baseURL: 'https://saifullah-portfolio-b.up.railway.app/api'
 });
 
 export default api;
