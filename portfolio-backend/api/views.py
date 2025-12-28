@@ -3,21 +3,6 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.conf import settings
-from django.http import HttpResponse
-from django.contrib.auth.models import User
-import os
-def create_admin_emergency(request):
-    username = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')
-    email = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
-    password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'YourTemporaryPass123')
-
-    # Delete existing to be sure
-    User.objects.filter(username=username).delete()
-    
-    # Create fresh
-    User.objects.create_superuser(username=username, email=email, password=password)
-    
-    return HttpResponse(f"Admin '{username}' created/reset successfully. Try logging in now.")
 
 from .models import (
     NavbarItem, HomeSection, AboutSection, Skill,

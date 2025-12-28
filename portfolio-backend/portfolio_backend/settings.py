@@ -5,8 +5,8 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-dev-key')
-DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
-ALLOWED_HOSTS = ['portfolio-backend-p52b.onrender.com', 'localhost', '127.0.0.1']
+DEBUG = True
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -56,11 +56,10 @@ TEMPLATES = [
 WSGI_APPLICATION = "portfolio_backend.wsgi.application"
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 db_from_env = dj_database_url.config(conn_max_age=600)
 if db_from_env:
@@ -103,30 +102,3 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "saifullahbhatti.se@gmail.com"
 EMAIL_HOST_PASSWORD = "bkdc vwaq dhld qozt"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-if not DEBUG:
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-APPEND_SLASH = True
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# 2. Force HTTPS for all cookies
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_HTTPONLY = True
-
-# 3. Handle the 'onrender' domain explicitly
-CSRF_TRUSTED_ORIGINS = [
-    'https://portfolio-backend-p52b.onrender.com',
-]
-
-# 4. Critical: Ensure the session engine is standard
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
