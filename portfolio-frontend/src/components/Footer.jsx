@@ -31,7 +31,7 @@ export default function Footer() {
         ))}
       </div>
       <p className="small text-muted mb-0">
-        Designed & Built by <strong>Shahzada Rizwan Ali</strong>
+        Designed & Developed by <strong>Saif U.</strong>
       </p>
     </footer>
   )

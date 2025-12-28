@@ -12,6 +12,9 @@
   --gradient-success: linear-gradient(135deg, #28a745, #20c997);
   --gradient-warning: linear-gradient(135deg, #ffc107, #fd7e14);
 }
+html {
+  scroll-behavior: smooth;
+}
 * { box-sizing: border-box; }
 body {
   font-family: 'Poppins', sans-serif;
@@ -32,7 +35,12 @@ section { padding: 30px 0; overflow-x: hidden; }
   content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--secondary-color); transition: width .3s ease;
 }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-
+/* Add this to your CSS file */
+#about {
+  /* This tells the browser to stop scrolling 100px before the element */
+  /* Adjust 100px to match the actual height of your navbar */
+  scroll-margin-top: 40px; 
+}
 #home { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 5%; }
 #home h1 { font-size: clamp(36px, 7vw, 70px); color: var(--light-slate); font-weight: 700; }
 #home h2 { font-size: clamp(18px, 4vw, 45px); color: var(--slate); font-weight: 600; }
@@ -87,3 +95,8 @@ footer { background-color: #0a192f; padding: 20px 0; text-align: center; }
 
 .reveal { position: relative; transform: translateY(150px); opacity: 0; transition: 1s all ease; }
 .reveal.active { transform: translateY(0); opacity: 1; }
+section:target.reveal {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  transition: none !important;
+}

@@ -41,7 +41,7 @@ export default function Navbar({ items = [] }) {
           {brand?.logo ? (
             <img src={brand.logo} alt="logo" style={{ height: 40 }} />
           ) : (
-            <span>{brand?.text || "SRA Portfolio"}</span>
+            <span>{brand?.text || "Saif U. Portfolio"}</span>
           )}
         </a>
         <button

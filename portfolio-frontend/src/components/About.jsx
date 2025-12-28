@@ -24,7 +24,7 @@ export default function About({ data }) {
           {/* ✅ RichTextField render */}
           <div dangerouslySetInnerHTML={{ __html: data?.description }} />
 
-          <h3 className="mt-4">Soft Skills:</h3>
+          <h3 className="mt-">Soft Skills:</h3>
           <div className="row mt-3">
             {softSkills.map((skill) => (
               <div key={skill.id} className="col-md-6 mb-2 d-flex align-items-center">
