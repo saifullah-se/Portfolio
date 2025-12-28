@@ -6,7 +6,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-dev-key')
 DEBUG = True
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    'saifullah-portfolio-b.up.railway.app', 
+    'localhost', 
+    '127.0.0.1'
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -109,3 +113,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "saifullahbhatti.se@gmail.com"
 EMAIL_HOST_PASSWORD = "bkdc vwaq dhld qozt"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
