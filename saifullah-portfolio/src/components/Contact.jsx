@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import api from '../api';
 
 export default function Contact({ data }) {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
@@ -6,35 +7,23 @@ export default function Contact({ data }) {
 
   const onChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const onSubmit = async (e) => {
-    e.preventDefault()
-    if (form.name && form.email && form.message) {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/api/contact-messages/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        })
-
-        if (response.ok) {
-          setSuccess(true)
-          setForm({ name: '', email: '', subject: '', message: '' })
-
-          // ✅ hide success message after 3 seconds
-          setTimeout(() => {
-            setSuccess(false)
-          }, 2000)
-        } else {
-          alert("Something went wrong. Please try again.")
-        }
-      } catch (error) {
-        console.error("Error:", error)
-        alert("Server error. Try again later.")
+const onSubmit = async (e) => {
+  e.preventDefault();
+  if (form.name && form.email && form.message) {
+    try {
+      // Use the axios instance 'api' you already configured
+      const response = await api.post("/contact-messages/", form);
+      
+      if (response.status === 201) {
+        alert("Message sent successfully!");
+        // reset form...
       }
-    } else {
-      alert('Please fill out all required fields.')
+    } catch (error) {
+      console.error("Error sending message:", error);
+      alert("Server error. Try again later.");
     }
   }
+};
 
   return (
     <>
