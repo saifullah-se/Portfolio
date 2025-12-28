@@ -12,7 +12,7 @@ const onSubmit = async (e) => {
   if (form.name && form.email && form.message) {
     try {
       // Use the axios instance 'api' you already configured
-      const response = await api.post("/contact-messages/", form);
+      const response = await api.post("/contact-messages", form);
       
       if (response.status === 201) {
         alert("Message sent successfully!");
