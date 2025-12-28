@@ -7,6 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-dev-key')
 DEBUG = True
 ALLOWED_HOSTS = [
+    'portfolio-backend-p52b.onrender.com',
     'saifullah-portfolio-b.up.railway.app', 
     'localhost', 
     '127.0.0.1'
