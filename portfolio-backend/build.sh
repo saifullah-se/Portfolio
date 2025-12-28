@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# exit on error
+set -o errexit
+
+# Upgrade pip and install requirements
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# Run migrations and collect static files
+python manage.py collectstatic --no-input
+python manage.py migrate
