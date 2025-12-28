@@ -34,6 +34,13 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'https://saifullah-portfolio-b.up.railway.app/',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://saifullah-portfolio-b.up.railway.app/',
+]
 
 ROOT_URLCONF = "portfolio_backend.urls"
 
