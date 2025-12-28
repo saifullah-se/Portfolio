@@ -5,8 +5,13 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-dev-key')
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+ALLOWED_HOSTS = [
+    'portfolio-backend.onrender.com', 
+    'localhost', 
+    '127.0.0.1',
+    '.onrender.com' # This covers all Render subdomains
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -102,3 +107,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "saifullahbhatti.se@gmail.com"
 EMAIL_HOST_PASSWORD = "bkdc vwaq dhld qozt"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
