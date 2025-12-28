@@ -5,24 +5,24 @@ pip install -r requirements.txt
 python manage.py collectstatic --no-input
 python manage.py migrate
 
-# Force create or update the superuser
 python manage.py shell << END
 from django.contrib.auth import get_user_model
-User = get_user_model()
 import os
 
-username = os.environ.get('DJANGO_SUPERUSER_USERNAME')
-email = os.environ.get('DJANGO_SUPERUSER_EMAIL')
-password = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
+User = get_user_model()
+un = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')
+pw = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
+em = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
 
-if not username or not password:
-    print("ERROR: DJANGO_SUPERUSER_USERNAME or PASSWORD not set in Render Env Vars")
+if pw:
+    # Delete any existing user with this name to avoid "Staff" flag confusion
+    User.objects.filter(username=un).delete()
+    # Create fresh
+    u = User.objects.create_superuser(username=un, email=em, password=pw)
+    u.is_staff = True
+    u.is_superuser = True
+    u.save()
+    print(f"--- LOG: Created superuser '{un}' successfully ---")
 else:
-    user, created = User.objects.get_or_create(username=username, defaults={'email': email})
-    user.set_password(password) # This hashes the password correctly
-    user.is_staff = True
-    user.is_superuser = True
-    user.is_active = True
-    user.save()
-    print(f"User {username} is now a superuser and staff member.")
+    print("--- LOG: No password found in environment variables ---")
 END
