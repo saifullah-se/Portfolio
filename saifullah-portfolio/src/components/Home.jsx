@@ -57,9 +57,9 @@ export default function Home({ data }) {
         <div className="row align-items-center mt-3">
           <div className="col-7">
             <p 
-              className="text-white small m-0" 
+              className="tagline lead mt-4" 
               ref={mobileTaglineRef}
-              style={{ minHeight: "48px", lineHeight: "1.3" }}
+              style={{ color: "#64ffda", fontFamily: "monospace" }}
             ></p>
           </div>
           
