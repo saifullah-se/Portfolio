@@ -45,7 +45,7 @@ export default function Contact({ data }) {
           {data?.email && <p><i className="fas fa-envelope me-2 text-success"></i> {data.email}</p>}
           {data?.phone_number && <p><i className="fas fa-phone me-2 text-success"></i> {data.phone_number}</p>}
           {data?.address && <p><i className="fas fa-map-marker-alt me-2 text-success"></i> {data.address}</p>}
-          {data?.linkedin_url && <a href={data.linkedin_url} target="_blank" className="btn btn-custom mt-3" rel="noreferrer"><i className="fab fa-linkedin me-2"></i> LinkedIn</a>}
+          {data?.linkedin_url && <a href={data.linkedin_url} target="_blank" className="btn btn-custom mt-3 mb-1" rel="noreferrer"><i className="fab fa-linkedin me-2"></i> LinkedIn</a>}
         </div>
         <div className="col-lg-7">
           <form onSubmit={onSubmit}>
