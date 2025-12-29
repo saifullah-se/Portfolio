@@ -101,13 +101,19 @@ section:target.reveal {
   transition: none !important;
 }
 
-/* saifullah-portfolio/src/styles.css */
-
+/* FIX for Mobile Spacing */
 @media (max-width: 991px) {
   #home {
-    /* This removes the vertical centering that forces the gap */
-    display: block !important; 
+    /* Disable vertical centering */
+    display: block !important;
     min-height: auto !important;
-    padding-top: 0 !important; /* Let the JSX handle the padding */
+    
+    /* Push content down just enough to clear the fixed Navbar */
+    /* 80px is standard for Bootstrap navbars, adjust if needed */
+    padding-top: 100px !important; 
+    
+    /* Remove side padding that might squash content */
+    padding-left: 15px !important;
+    padding-right: 15px !important;
   }
 }
