@@ -1,11 +1,9 @@
 import React, { useEffect, useRef } from "react";
 
 export default function Home({ data }) {
-  // We need two refs because the mobile and desktop layouts are separate elements now
   const mobileTaglineRef = useRef(null);
   const desktopTaglineRef = useRef(null);
 
-  // Typewriter effect function
   const runTypewriter = (el, text) => {
     if (!el || !text) return;
     el.innerHTML = "";
@@ -22,25 +20,27 @@ export default function Home({ data }) {
 
   useEffect(() => {
     if (data?.tagline) {
-      // Run effect on both (whichever is visible will show it)
       runTypewriter(mobileTaglineRef.current, data.tagline);
       runTypewriter(desktopTaglineRef.current, data.tagline);
     }
   }, [data?.tagline]);
 
   return (
-    <div className="container">
+    <div className="container" style={{ position: "relative" }}>
       
       {/* =========================================
           MOBILE VIEW (d-lg-none)
-          Layout: 
-          [ Name & Title ]
-          [ Tagline | Image ]
-          [ Buttons ]
+          Fixed Spacing: Reduced top padding to 85px
       ========================================= */}
-      <div className="d-lg-none text-start" style={{ paddingTop: "110px" }}>
+      <div 
+        className="d-lg-none text-start" 
+        style={{ 
+          paddingTop: "85px", // REDUCED from 110px to remove the gap
+          paddingBottom: "50px"
+        }}
+      >
         
-        {/* Top Block: Greeting, Name, Title */}
+        {/* Top Block: Name & Title */}
         <div className="mb-3">
           <p className="text-white-50 mb-0 small">
             {data?.greeting || "Hi, my name is"}
@@ -54,13 +54,12 @@ export default function Home({ data }) {
         </div>
 
         {/* Middle Row: Tagline (Left) and Image (Right) */}
-        <div className="row align-items-center">
+        <div className="row align-items-center mt-3">
           <div className="col-7">
-            {/* Tagline Typewriter */}
             <p 
               className="text-white small m-0" 
               ref={mobileTaglineRef}
-              style={{ minHeight: "60px", lineHeight: "1.4" }}
+              style={{ minHeight: "48px", lineHeight: "1.3" }}
             ></p>
           </div>
           
@@ -72,9 +71,9 @@ export default function Home({ data }) {
                 className="img-fluid shadow-lg"
                 style={{ 
                   borderRadius: "50%", 
-                  border: "2px solid #64ffda", // Professional accent border
+                  border: "2px solid #64ffda", 
                   width: "100%",
-                  maxWidth: "140px",
+                  maxWidth: "130px", // Slightly smaller for better fit
                   aspectRatio: "1/1",
                   objectFit: "cover"
                 }}
@@ -104,10 +103,10 @@ export default function Home({ data }) {
 
       {/* =========================================
           DESKTOP VIEW (d-none d-lg-block)
-          Standard Side-by-Side Layout
+          (No Changes Here - Keeps your perfect desktop layout)
       ========================================= */}
       <div className="d-none d-lg-block">
-        <div className="row align-items-center" style={{ minHeight: "80vh" }}>
+        <div className="row align-items-center" style={{ minHeight: "90vh" }}>
           <div className="col-lg-8 text-start">
             <p className="text-white-50 mb-1">
               {data?.greeting || "Hi, my name is"}

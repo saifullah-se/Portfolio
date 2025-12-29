@@ -101,14 +101,13 @@ section:target.reveal {
   transition: none !important;
 }
 
+/* saifullah-portfolio/src/styles.css */
+
 @media (max-width: 991px) {
   #home {
-    /* Stop centering vertically on mobile */
-    align-items: flex-start !important; 
-    /* Add padding to push it down from the fixed Navbar */
-    padding-top: 130px !important; 
-    /* Allow height to fit content instead of forcing full screen */
-    min-height: auto !important; 
-    padding-bottom: 50px;
+    /* This removes the vertical centering that forces the gap */
+    display: block !important; 
+    min-height: auto !important;
+    padding-top: 0 !important; /* Let the JSX handle the padding */
   }
 }
