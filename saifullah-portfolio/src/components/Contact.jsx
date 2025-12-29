@@ -12,7 +12,11 @@ const onSubmit = async (e) => {
   if (form.name && form.email && form.message) {
     try {
       // Use the axios instance 'api' you already configured
-      const response = await api.post("/contact-messages", form);
+      const response = await fetch("https://saifullah-portfolio-b.up.railway.app/api/contact-messages/", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(form),
+})
       
       if (response.status === 201) {
         alert("Message sent successfully!");
