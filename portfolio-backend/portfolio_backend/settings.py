@@ -22,6 +22,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
+    'cloudinary_storage', # Add this first
+    'django.contrib.staticfiles',
+    'cloudinary',         # Add this
     "api",
     "ckeditor",
 ]
@@ -118,3 +121,12 @@ EMAIL_HOST_PASSWORD = "bkdc vwaq dhld qozt"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
+# This tells Django to use Cloudinary for any file/image uploads
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
