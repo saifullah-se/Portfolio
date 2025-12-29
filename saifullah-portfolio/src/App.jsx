@@ -24,6 +24,7 @@ export default function App() {
   const [projects, setProjects] = useState([])
 
   useEffect(() => {
+    // Fetch all data
     Promise.all([
       api.get('/navbar/'),
       api.get('/home/'),
@@ -49,8 +50,7 @@ export default function App() {
       .catch((e) => console.error(e))
   }, [])
 
-  // --- NEW: Global Scroll Reveal Script ---
-  // This ensures ALL sections (About, Skills, Projects, etc.) fade in when scrolled to.
+  // --- GLOBAL SCROLL REVEAL SCRIPT ---
   useEffect(() => {
     const reveal = () => {
       const reveals = document.querySelectorAll('.reveal');
@@ -58,23 +58,24 @@ export default function App() {
       reveals.forEach((el) => {
         const windowHeight = window.innerHeight;
         const elementTop = el.getBoundingClientRect().top;
-        const elementVisible = 100; // Trigger slightly earlier
+        const elementVisible = 50; // Trigger earlier (was 150)
 
-        if (elementTop < windowHeight - elementVisible) {
+        // If the element is visible OR if we are at the very bottom of the page
+        if (elementTop < windowHeight - elementVisible || (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
           el.classList.add('active');
-        } else {
-          // Optional: Remove else block if you want them to stay visible once revealed
-          el.classList.remove('active');
-        }
+        } 
+        // IMPORTANT: Removed the 'else' block. 
+        // Once a section is revealed, it stays visible. This stops the "disappearing" glitch.
       });
     }
 
     window.addEventListener('scroll', reveal);
-    // Run once immediately to show sections already in view (like Home/About)
-    reveal();
+    
+    // Trigger immediately to show sections already on screen (like Home/Skills after refresh)
+    setTimeout(reveal, 100); 
     
     return () => window.removeEventListener('scroll', reveal);
-  }, []);
+  }, []); // Run once on mount
 
   return (
     <>
@@ -87,7 +88,7 @@ export default function App() {
         </section>
         
         <div className="container">
-          {/* These sections have 'reveal' class, so they need the script above to appear */}
+          {/* Sections with 'reveal' class */}
           <section id="about" className="reveal">
             <About data={about} />
           </section>

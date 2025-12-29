@@ -1,65 +1,48 @@
 import React, { useEffect, useRef } from 'react'
 
 export default function Skills({ items = [] }) {
-  // 1. Create a reference to this specific section
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    // --- Logic 1: Reveal Cards on Scroll ---
-    const reveal = () => {
-      // Select only elements inside this component to avoid conflicts
-      const reveals = sectionRef.current 
-        ? sectionRef.current.querySelectorAll('.reveal') 
-        : document.querySelectorAll('.reveal');
-
-      reveals.forEach((el) => {
-        const windowHeight = window.innerHeight;
-        const elementTop = el.getBoundingClientRect().top;
-        const elementVisible = 50; // Triggers sooner on mobile
-        if (elementTop < windowHeight - elementVisible) el.classList.add('active');
-        else el.classList.remove('active');
-      });
-    }
-    window.addEventListener('scroll', reveal);
-    reveal(); // Run once on load
-
-    // --- Logic 2: Animate Progress Bars ---
-    const animate = () => {
-      // Find all progress bars specifically inside this section
+    // Logic: Animate Progress Bars when this section is visible
+    const animateBars = () => {
       const bars = sectionRef.current 
         ? sectionRef.current.querySelectorAll('.progress-bar[data-width]') 
         : document.querySelectorAll('.progress-bar[data-width]');
 
       bars.forEach((bar) => {
         const width = bar.getAttribute('data-width');
-        bar.style.width = width + '%'; // This triggers the CSS transition
+        // Force a small delay to ensure the browser paints the change
+        requestAnimationFrame(() => {
+            bar.style.width = width + '%';
+        });
       });
     }
 
-    // --- Logic 3: The Intersection Observer ---
+    // Use IntersectionObserver to trigger the animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        // Trigger if ANY part is visible (isIntersecting)
+        // Trigger if ANY part of the section is visible
         if (entry.isIntersecting) { 
-          animate(); 
+          animateBars(); 
           observer.unobserve(entry.target); // Run only once
         }
       })
-    }, { threshold: 0 }); // <--- CHANGED TO 0 (Fixes Mobile Issue)
+    }, { threshold: 0.1 }); // 10% visibility trigger
 
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
 
-    // Fallback: If observer fails (rare), run animation after 1 second
-    setTimeout(animate, 1000);
+    // Backup: If the observer misses (e.g. fast refresh), force animation after 500ms
+    setTimeout(animateBars, 500);
 
     return () => {
-      window.removeEventListener('scroll', reveal);
       observer.disconnect();
     }
-  }, [])
+  }, [items]); // Add items to dependency to re-run if data loads late
 
+  // Grouping items for display
   const buckets = {
     frontend: items.filter(i => (i.category || '').toLowerCase() === 'front-end'),
     backend: items.filter(i => (i.category || '').toLowerCase() === 'back-end'),
@@ -67,7 +50,7 @@ export default function Skills({ items = [] }) {
   }
 
   const Card = ({ title, cls, list }) => (
-    <div className="col-lg-4 col-md-6 reveal"> {/* Added 'reveal' class here just in case */}
+    <div className="col-lg-4 col-md-6">
       <div className={`card-custom text-center ${cls}`}>
         <div className="skill-icon">
           <i className={cls==='skill-frontend'?'bi bi-code-slash':cls==='skill-backend'?'bi bi-server':'bi bi-palette-fill'}></i>
@@ -81,7 +64,7 @@ export default function Skills({ items = [] }) {
                 className="progress-bar" 
                 role="progressbar" 
                 data-width={s.level || 0}
-                style={{ width: "0%" }} // Start at 0 to ensure animation happens
+                style={{ width: "0%" }} // Start at 0 to ensure animation works
               ></div>
             </div>
           </div>
@@ -91,7 +74,6 @@ export default function Skills({ items = [] }) {
   )
 
   return (
-    // 2. Attach the ref to the container
     <div ref={sectionRef} id="skills-section">
       <h2 className="section-title">Skills</h2>
       <div className="row g-4">
