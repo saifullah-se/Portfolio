@@ -47,7 +47,7 @@ export default function Contact({ data }) {
           {data?.address && <p><i className="fas fa-map-marker-alt me-2 text-success"></i> {data.address}</p>}
           {data?.linkedin_url && <a href={data.linkedin_url} target="_blank" className="btn btn-custom mt-3 mb-2" rel="noreferrer"><i className="fab fa-linkedin me-2"></i> LinkedIn</a>}
         </div>
-        <div className="col-lg-7">
+        <div className="col-lg-7 mt-2">
           <form onSubmit={onSubmit}>
             <div className="mb-3">
               <input type="text" className="form-control" name="name" placeholder="Your Name" value={form.name} onChange={onChange} required />
