@@ -6,6 +6,16 @@ from .models import (
     FooterLink, NavbarLogo, SiteSettings,   
 )
 
+def get_secure_image_url(image_field):
+    """Ensures the Cloudinary URL is secure and has an extension for mobile."""
+    if image_field:
+        url = image_field.url
+        # If the URL doesn't end with a common extension, force .jpg
+        if not any(url.lower().endswith(ext) for ext in ['.jpg', '.jpeg', '.png', '.webp']):
+            return f"{url}.jpg"
+        return url
+    return None
+
 class NavbarLogoSerializer(serializers.ModelSerializer):
     class Meta:
         model = NavbarLogo
@@ -26,9 +36,15 @@ class NavbarItemSerializer(serializers.ModelSerializer):
 
 
 class HomeSectionSerializer(serializers.ModelSerializer):
+    # Using the name 'profile_image' to match your model or a custom name
+    profile_image = serializers.SerializerMethodField()
+
     class Meta:
         model = HomeSection
         fields = '__all__'
+
+    def get_profile_image(self, obj):
+        return get_secure_image_url(obj.profile_image)
 
 
 class SoftSkillSerializer(serializers.ModelSerializer):
@@ -39,17 +55,25 @@ class SoftSkillSerializer(serializers.ModelSerializer):
 
 class AboutSectionSerializer(serializers.ModelSerializer):
     soft_skills = SoftSkillSerializer(many=True, read_only=True)
+    about_image = serializers.SerializerMethodField()
 
     class Meta:
         model = AboutSection
         fields = ['id', 'title', 'description', 'about_image', 'soft_skills']
 
+    def get_about_image(self, obj):
+        return get_secure_image_url(obj.about_image)
+
 
 class SkillSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = Skill
         fields = '__all__'
 
+    def get_image(self, obj):
+        return get_secure_image_url(obj.image)
 
 class EducationSerializer(serializers.ModelSerializer):
     start_date = serializers.DateField(format="%b %Y")
@@ -83,7 +107,9 @@ class ExperienceSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
     tools = serializers.SerializerMethodField()
-    languages = serializers.SerializerMethodField() 
+    languages = serializers.SerializerMethodField()
+    # Note: If your Project model has an image field (e.g., 'image'), add it here
+    # project_image = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
@@ -98,10 +124,14 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 
 class GalleryImageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = GalleryImage
         fields = '__all__'
 
+    def get_image(self, obj):
+        return get_secure_image_url(obj.image)
 
 class ContactMessageSerializer(serializers.ModelSerializer):
     class Meta:
