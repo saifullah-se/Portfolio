@@ -41,7 +41,7 @@ export default function Home({ data }) {
       >
         
         {/* Top Block: Name & Title */}
-        <div className="mb-3">
+        <div className="mb-2">
           <p className="text-white-50 mb-0 small">
             {data?.greeting || "Hi, my name is"}
           </p>
