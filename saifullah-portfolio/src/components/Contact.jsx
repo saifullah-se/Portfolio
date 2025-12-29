@@ -19,8 +19,6 @@ const onSubmit = async (e) => {
 })
       
       if (response.status === 201) {
-        alert("Message sent successfully!");
-        // reset form...
       }
     } catch (error) {
       console.error("Error sending message:", error);
