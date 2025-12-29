@@ -36,8 +36,8 @@ class NavbarItemSerializer(serializers.ModelSerializer):
 
 
 class HomeSectionSerializer(serializers.ModelSerializer):
-    # Using the name 'profile_image' to match your model or a custom name
     profile_image = serializers.SerializerMethodField()
+    resume_file = serializers.SerializerMethodField()  # <--- ADD THIS
 
     class Meta:
         model = HomeSection
@@ -45,6 +45,21 @@ class HomeSectionSerializer(serializers.ModelSerializer):
 
     def get_profile_image(self, obj):
         return get_secure_image_url(obj.profile_image)
+
+    def get_resume_file(self, obj):
+        if obj.resume_file:
+            url = obj.resume_file.url
+            # 1. Force HTTPS
+            if url.startswith('http://'):
+                url = url.replace('http://', 'https://', 1)
+            
+            # 2. Force .pdf extension if missing
+            # This fixes the 401 Unauthorized error
+            if not any(url.lower().endswith(ext) for ext in ['.pdf', '.doc', '.docx']):
+                url = f"{url}.pdf"
+                
+            return url
+        return None
 
 
 class SoftSkillSerializer(serializers.ModelSerializer):
