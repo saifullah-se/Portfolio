@@ -1,5 +1,4 @@
-import resend
-import os  # <--- Make sure this is imported
+import os 
 from rest_framework import viewsets, permissions, status
 from rest_framework import viewsets, permissions, status
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -112,14 +111,16 @@ class GalleryImageViewSet(viewsets.ModelViewSet):
     serializer_class = GalleryImageSerializer
     permission_classes = [ReadOnlyOrAdmin]
 
-resend.api_key = os.environ.get("RESEND_API_KEY")
 class ContactMessageViewSet(viewsets.ModelViewSet):
     queryset = ContactMessage.objects.all().order_by('-created_at')
     serializer_class = ContactMessageSerializer
     permission_classes = [permissions.AllowAny]
 
     def create(self, request, *args, **kwargs):
-        # All these lines MUST be pushed to the right
+        # Import it HERE so the build script doesn't see it
+        import resend 
+        resend.api_key = os.environ.get("RESEND_API_KEY")
+        
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
