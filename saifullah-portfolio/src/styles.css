@@ -100,3 +100,15 @@ section:target.reveal {
   opacity: 1 !important;
   transition: none !important;
 }
+
+@media (max-width: 991px) {
+  #home {
+    /* Stop centering vertically on mobile */
+    align-items: flex-start !important; 
+    /* Add padding to push it down from the fixed Navbar */
+    padding-top: 130px !important; 
+    /* Allow height to fit content instead of forcing full screen */
+    min-height: auto !important; 
+    padding-bottom: 50px;
+  }
+}

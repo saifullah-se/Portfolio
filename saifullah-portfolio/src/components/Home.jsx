@@ -21,16 +21,16 @@ export default function Home({ data }) {
 
   return (
     <div className="container">
-      {/* --- Main Row: Text and Image Side-by-Side --- */}
+      {/* ROW 1: Text and Image Side-by-Side */}
       <div className="row align-items-center">
         
-        {/* TEXT COLUMN: col-7 on Mobile, col-lg-8 on Desktop */}
+        {/* TEXT: Takes 60% of width on mobile (col-7) */}
         <div className="col-7 col-lg-8 text-start">
           <p className="text-white-50 mb-1 small">
             {data?.greeting || "Hi, my name is"}
           </p>
           
-          {/* Name: Smaller on mobile (display-6), Big on desktop (display-1) */}
+          {/* Responsive Heading Sizes */}
           <h1 className="fw-bold mb-1 display-6 d-lg-none">
             {data?.name || ""}
           </h1>
@@ -38,23 +38,21 @@ export default function Home({ data }) {
             {data?.name || ""}
           </h1>
 
-          <h2 className="text-white-75 h6 d-lg-none"> {/* Mobile Title */}
+          <h2 className="text-white-75 h6 d-lg-none">
             {data?.title || ""}
           </h2>
-          <h2 className="text-white-75 d-none d-lg-block"> {/* Desktop Title */}
+          <h2 className="text-white-75 d-none d-lg-block">
             {data?.title || ""}
           </h2>
 
-          {/* Tagline: Added 'text-white' to force color match with desktop */}
-          <p className="mt-2 tagline fs-6 text-white d-lg-none" ref={taglineRef}></p> 
+          <p className="mt-2 tagline fs-6 text-white d-lg-none" ref={taglineRef}></p>
           <p className="lead mt-4 tagline d-none d-lg-block" id="tagline-desktop">
              {data?.tagline} 
           </p>
         </div>
 
-        {/* IMAGE COLUMN: col-5 on Mobile, col-lg-4 on Desktop */}
+        {/* IMAGE: Takes 40% of width on mobile (col-5) & Visible on all screens */}
         <div className="col-5 col-lg-4 d-flex justify-content-center">
-          {/* FIXED: Variable name is data.profile_image */}
           {data?.profile_image && (
             <img
               src={data.profile_image}
@@ -72,9 +70,8 @@ export default function Home({ data }) {
         </div>
       </div>
 
-      {/* --- Button Row: Below the Text/Image --- */}
+      {/* ROW 2: Buttons (Placed below text/image) */}
       <div className="row mt-4">
-        {/* Centered on Mobile, Left-Aligned on Desktop */}
         <div className="col-12 text-center text-lg-start">
           {data?.resume_file && (
             <a
