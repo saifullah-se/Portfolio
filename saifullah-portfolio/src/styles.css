@@ -41,6 +41,18 @@ section { padding: 30px 0; overflow-x: hidden; }
   /* Adjust 100px to match the actual height of your navbar */
   scroll-margin-top: 40px; 
 }
+#contact  {
+  scroll-margin-top: 40px;
+}
+#project  {
+  scroll-margin-top: 40px;
+}
+#experience  {
+  scroll-margin-top: 40px;
+}
+#skills  {
+  scroll-margin-top: 40px;
+}
 #home { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 5%; }
 #home h1 { font-size: clamp(36px, 7vw, 70px); color: var(--light-slate); font-weight: 700; }
 #home h2 { font-size: clamp(18px, 4vw, 45px); color: var(--slate); font-weight: 600; }
