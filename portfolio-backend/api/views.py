@@ -1,4 +1,4 @@
-
+import resend
 import os  # <--- Make sure this is imported
 from rest_framework import viewsets, permissions, status
 from rest_framework import viewsets, permissions, status
@@ -111,6 +111,8 @@ class GalleryImageViewSet(viewsets.ModelViewSet):
     queryset = GalleryImage.objects.all()
     serializer_class = GalleryImageSerializer
     permission_classes = [ReadOnlyOrAdmin]
+
+resend.api_key = os.environ.get("RESEND_API_KEY")
 class ContactMessageViewSet(viewsets.ModelViewSet):
     queryset = ContactMessage.objects.all().order_by('-created_at')
     serializer_class = ContactMessageSerializer
