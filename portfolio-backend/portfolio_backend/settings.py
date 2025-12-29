@@ -14,18 +14,20 @@ ALLOWED_HOSTS = [
 ]
 
 INSTALLED_APPS = [
-    'cloudinary_storage',          # Must be above staticfiles
+    # 'cloudinary_storage',  <-- REMOVE FROM HERE
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",  # Kept only once
+    "whitenoise.runserver_nostatic", 
+    "django.contrib.staticfiles", # Standard staticfiles app
     "rest_framework",
     "corsheaders",
-    'cloudinary',
     "api",
     "ckeditor",
+    "cloudinary",
+    "cloudinary_storage",     # <-- PASTE IT HERE (After staticfiles)
 ]
 
 MIDDLEWARE = [
@@ -132,7 +134,7 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "cloudinary_storage.storage.StaticHashedCloudinaryStorage",
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 CKEDITOR_CONFIGS = {
