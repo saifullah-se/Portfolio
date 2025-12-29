@@ -110,7 +110,7 @@ section:target.reveal {
     
     /* Push content down just enough to clear the fixed Navbar */
     /* 80px is standard for Bootstrap navbars, adjust if needed */
-    padding-top: 100px !important; 
+    padding-top: 10px !important; 
     
     /* Remove side padding that might squash content */
     padding-left: 15px !important;
