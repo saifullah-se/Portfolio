@@ -79,6 +79,7 @@ class Project(models.Model):
     tools = models.CharField(max_length=255, blank=True, null=True)
     languages = models.CharField(max_length=255, blank=True, null=True)
     link = models.URLField(blank=True, null=True)
+    image = models.ImageField(upload_to='projects/', blank=True, null=True)
 
     def __str__(self):
         return self.title

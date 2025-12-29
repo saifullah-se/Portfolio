@@ -108,8 +108,9 @@ class ExperienceSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     tools = serializers.SerializerMethodField()
     languages = serializers.SerializerMethodField()
-    # Note: If your Project model has an image field (e.g., 'image'), add it here
-    # project_image = serializers.SerializerMethodField()
+    project_image = serializers.SerializerMethodField()
+    def get_project_image(self, obj):
+        return get_secure_image_url(obj.image) # Use your helper
 
     class Meta:
         model = Project

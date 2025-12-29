@@ -15,7 +15,7 @@ export default function About({ data }) {
     <>
       <h2 className="section-title">{data?.title || "About Me"}</h2>
       <div className="row align-items-center">
-        <div className="col-lg-4 d-none d-lg-flex justify-content-center mb-4 mb-lg-0">
+        <div className="col-lg-4 d-flex justify-content-center mb-4 mb-lg-0">
           {data?.about_image && (
             <img src={data.about_image} alt="About" className="profile-img" />
           )}

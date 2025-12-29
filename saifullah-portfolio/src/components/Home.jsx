@@ -45,7 +45,7 @@ export default function Home({ data }) {
             </a>
           </div>
         </div>
-        <div className="col-lg-4 d-none d-lg-flex justify-content-center">
+        <div className="col-lg-4 d-flex justify-content-center">
           {data?.profile_image && (
             <img
               src={data.profile_image}
