@@ -117,14 +117,11 @@ class ContactMessageViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
 
     def create(self, request, *args, **kwargs):
-        import resend
-resend.api_key = os.environ.get("RESEND_API_KEY")
-        # Everything below MUST be indented inside the function
+        # All these lines MUST be pushed to the right
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             
-            # Send Email via Resend API
             try:
                 resend.Emails.send({
                     "from": "onboarding@resend.dev", 
@@ -142,7 +139,6 @@ resend.api_key = os.environ.get("RESEND_API_KEY")
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
-        # Return 400 if data is not valid
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
