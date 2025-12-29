@@ -135,3 +135,9 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.StaticHashedCloudinaryStorage",
     },
 }
+CKEDITOR_CONFIGS = {
+    'default': {
+        'versionCheck': False,
+    },
+}
+SILENCED_SYSTEM_CHECKS = ["ckeditor.W001"]
