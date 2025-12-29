@@ -14,17 +14,16 @@ ALLOWED_HOSTS = [
 ]
 
 INSTALLED_APPS = [
+    'cloudinary_storage',          # Must be above staticfiles
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
+    "django.contrib.staticfiles",  # Kept only once
     "rest_framework",
     "corsheaders",
-    'cloudinary_storage', # Add this first
-    'django.contrib.staticfiles',
-    'cloudinary',         # Add this
+    'cloudinary',
     "api",
     "ckeditor",
 ]
