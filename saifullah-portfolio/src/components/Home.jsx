@@ -45,20 +45,21 @@ export default function Home({ data }) {
             {data?.title || ""}
           </h2>
 
-          <p className="mt-2 tagline text-white-50 small d-lg-none" ref={taglineRef}></p> {/* Mobile Tagline */}
-          <p className="lead mt-4 tagline d-none d-lg-block" id="tagline-desktop"> {/* Desktop Tagline */}
+          {/* Tagline: Added 'text-white' to force color match with desktop */}
+          <p className="mt-2 tagline fs-6 text-white d-lg-none" ref={taglineRef}></p> 
+          <p className="lead mt-4 tagline d-none d-lg-block" id="tagline-desktop">
              {data?.tagline} 
           </p>
         </div>
 
         {/* IMAGE COLUMN: col-5 on Mobile, col-lg-4 on Desktop */}
         <div className="col-5 col-lg-4 d-flex justify-content-center">
-          {data?.profile_image_url && (
+          {/* FIXED: Variable name is data.profile_image */}
+          {data?.profile_image && (
             <img
-              src={data.profile_image_url}
+              src={data.profile_image}
               alt={data?.name || "Profile"}
               className="profile-img img-fluid"
-              // Ensure image is circular and responsive
               style={{ 
                 width: "100%", 
                 maxWidth: "350px", 
