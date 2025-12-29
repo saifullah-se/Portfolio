@@ -1,8 +1,12 @@
+import resend
+import os  # <--- Make sure this is imported
+from rest_framework import viewsets, permissions, status
 from rest_framework import viewsets, permissions, status
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.conf import settings
+
 
 from .models import (
     NavbarItem, HomeSection, AboutSection, Skill,
@@ -107,35 +111,38 @@ class GalleryImageViewSet(viewsets.ModelViewSet):
     queryset = GalleryImage.objects.all()
     serializer_class = GalleryImageSerializer
     permission_classes = [ReadOnlyOrAdmin]
-
-
+resend.api_key = os.environ.get("RESEND_API_KEY")
 class ContactMessageViewSet(viewsets.ModelViewSet):
     queryset = ContactMessage.objects.all().order_by('-created_at')
     serializer_class = ContactMessageSerializer
-    permission_classes = [permissions.AllowAny]  # Anyone can send a message
+    permission_classes = [permissions.AllowAny]
 
     def create(self, request, *args, **kwargs):
+        # Everything below MUST be indented inside the function
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
+        if serializer.is_valid():
+            serializer.save()
+            
+            # Send Email via Resend API
+            try:
+                resend.Emails.send({
+                    "from": "onboarding@resend.dev", 
+                    "to": "saifullahbhatti.se@gmail.com", 
+                    "subject": f"New Message: {serializer.validated_data.get('subject')}",
+                    "html": f"""
+                        <h3>New Contact Message</h3>
+                        <p><strong>Name:</strong> {serializer.validated_data.get('name')}</p>
+                        <p><strong>Email:</strong> {serializer.validated_data.get('email')}</p>
+                        <p><strong>Message:</strong> {serializer.validated_data.get('message')}</p>
+                    """
+                })
+            except Exception as e:
+                print(f"Resend error: {e}") 
 
-        # Send email notification
-        send_mail(
-            subject=f"New Contact Message: {serializer.validated_data.get('subject', 'No Subject')}",
-            message=f"""
-You received a new message:
-
-Name: {serializer.validated_data['name']}
-Email: {serializer.validated_data['email']}
-Message: {serializer.validated_data['message']}
-            """,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[settings.DEFAULT_FROM_EMAIL],
-            fail_silently=True,
-        )
-
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        # Return 400 if data is not valid
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # 🔹 Footer Link ViewSet
