@@ -41,7 +41,7 @@ export default function Home({ data }) {
       >
         
         {/* Top Block: Name & Title */}
-        <div className="mb-2">
+        <div className="mb-3">
           <p className="text-white-50 mb-0 small">
             {data?.greeting || "Hi, my name is"}
           </p>
@@ -57,7 +57,7 @@ export default function Home({ data }) {
         <div className="row align-items-center mt-3">
           <div className="col-7">
             <p 
-              className="tagline lead mt-4" 
+              className="tagline lead mt-3" 
               ref={mobileTaglineRef}
               style={{ color: "#64ffda", fontFamily: "monospace" }}
             ></p>
