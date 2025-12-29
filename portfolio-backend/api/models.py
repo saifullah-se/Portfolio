@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary_storage.storage import RawMediaCloudinaryStorage
 from ckeditor.fields import RichTextField
 
 
@@ -20,7 +21,7 @@ class HomeSection(models.Model):
     title = models.CharField(max_length=150)
     tagline = models.CharField(max_length=255, blank=True, default='')
     profile_image = models.ImageField(upload_to='profile/', blank=True, null=True)
-    resume_file = models.FileField(upload_to='resume/', blank=True, null=True)
+    resume_file = models.FileField(upload_to='resume/', blank=True, null=True, storage=RawMediaCloudinaryStorage())
 
     def __str__(self):
         return self.name
