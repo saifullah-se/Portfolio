@@ -24,7 +24,7 @@ export default function Skills({ items = [] }) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) { animate(); observer.unobserve(entry.target) }
       })
-    }, { threshold: 0.5 })
+    }, { threshold: 0.1 })
     if (section) observer.observe(section)
     return () => {
       window.removeEventListener('scroll', reveal)
