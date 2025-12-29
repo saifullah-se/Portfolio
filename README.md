@@ -64,7 +64,7 @@ Your backend will run at: http://127.0.0.1:8000/
 3️⃣ Frontend Setup (React)
 
 ```bash
-cd portfolio-frontend
+cd saifullah-portfolio
 npm install
 npm run dev
 ```
@@ -75,8 +75,9 @@ Your frontend will run at: http://localhost:5173/
 
 👨‍💻 Author
 
-Shahzada Rizwan Ali
+Saif U.
 
-- [LinkedIn] www.linkedin.com/in/shahzada-rizwan-ali-5087b0274
-- [GitHub] https://github.com/shahzadarizwanali/
-- [Email] shahzadarizwanali01@gmail.com
+- [LinkedIn] www.linkedin.com/in/saif-ullah-se
+- [GitHub]   https://github.com/saifullah-se
+- [Email] saifullahbhatti.se@gmail.com
+- [Live] https://saifullah-portfolio.onrender.com
