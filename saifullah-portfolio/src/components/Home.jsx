@@ -54,7 +54,7 @@ export default function Home({ data }) {
         </div>
 
         {/* Middle Row: Tagline (Left) and Image (Right) */}
-        <div className="row align-items-center mt-3">
+        <div className="row align-items-center mt-2">
           <div className="col-7">
             <p 
               className="tagline lead mt-3" 
@@ -63,19 +63,19 @@ export default function Home({ data }) {
             ></p>
           </div>
           
-          <div className="col-5 d-flex justify-content-center">
+                    <div className="col-lg-4 d-flex justify-content-center">
             {data?.profile_image && (
               <img
                 src={data.profile_image}
                 alt="Profile"
-                className="img-fluid shadow-lg"
-                style={{ 
-                  borderRadius: "50%", 
-                  border: "2px solid #64ffda", 
-                  width: "100%",
-                  maxWidth: "130px", // Slightly smaller for better fit
-                  aspectRatio: "1/1",
-                  objectFit: "cover"
+                className="profile-img"
+                style={{
+                  width: "300px",
+                  height: "300px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  border: "3px solid #64ffda",
+                  boxShadow: "0 0 20px rgba(100,255,218,0.2)"
                 }}
               />
             )}
