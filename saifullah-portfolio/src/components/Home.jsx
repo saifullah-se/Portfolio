@@ -57,8 +57,8 @@ export default function Home({ data }) {
         <div className="row align-items-center mt-2">
           <div className="col-7">
             <p 
-              className="tagline lead mt-3" 
-              ref={mobileTaglineRef}
+              className="lead mt-4 tagline" 
+              ref={desktopTaglineRef}
               style={{ color: "#64ffda", fontFamily: "monospace" }}
             ></p>
           </div>
