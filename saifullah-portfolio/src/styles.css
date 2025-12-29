@@ -113,7 +113,5 @@ section:target.reveal {
     padding-top: 10px !important; 
     
     /* Remove side padding that might squash content */
-    padding-left: 15px !important;
-    padding-right: 15px !important;
   }
 }

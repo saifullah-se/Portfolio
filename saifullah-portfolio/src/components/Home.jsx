@@ -55,11 +55,13 @@ export default function Home({ data }) {
 
         {/* Middle Row: Tagline (Left) and Image (Right) */}
         <div className="row align-items-center mt-2">
+          <div className="col-7">
             <p 
-              className="lead mt-4 tagline" 
-              ref={desktopTaglineRef}
+              className="tagline lead mt-3" 
+              ref={mobileTaglineRef}
               style={{ color: "#64ffda", fontFamily: "monospace" }}
             ></p>
+          </div>
           
                     <div className="col-lg-4 d-flex justify-content-center">
             {data?.profile_image && (
