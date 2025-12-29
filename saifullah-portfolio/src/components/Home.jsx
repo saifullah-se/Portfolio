@@ -55,9 +55,9 @@ export default function Home({ data }) {
 
         {/* Middle Row: Tagline (Left) and Image (Right) */}
         <div className="row align-items-center mt-2">
-          <div className="col-7">
+          <div className="col-12">
             <p 
-              className="tagline lead mt-3" 
+              className="tagline lead mt-2" 
               ref={mobileTaglineRef}
               style={{ color: "#64ffda", fontFamily: "monospace" }}
             ></p>
