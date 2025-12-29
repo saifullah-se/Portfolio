@@ -49,9 +49,35 @@ export default function App() {
       .catch((e) => console.error(e))
   }, [])
 
+  // --- NEW: Global Scroll Reveal Script ---
+  // This ensures ALL sections (About, Skills, Projects, etc.) fade in when scrolled to.
+  useEffect(() => {
+    const reveal = () => {
+      const reveals = document.querySelectorAll('.reveal');
+
+      reveals.forEach((el) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = el.getBoundingClientRect().top;
+        const elementVisible = 100; // Trigger slightly earlier
+
+        if (elementTop < windowHeight - elementVisible) {
+          el.classList.add('active');
+        } else {
+          // Optional: Remove else block if you want them to stay visible once revealed
+          el.classList.remove('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', reveal);
+    // Run once immediately to show sections already in view (like Home/About)
+    reveal();
+    
+    return () => window.removeEventListener('scroll', reveal);
+  }, []);
+
   return (
     <>
-      {/* Favicon + Title updater */}
       <SiteHead />
 
       <Navbar items={navbar} />
@@ -59,7 +85,9 @@ export default function App() {
         <section id="home">
           <Home data={home} />
         </section>
+        
         <div className="container">
+          {/* These sections have 'reveal' class, so they need the script above to appear */}
           <section id="about" className="reveal">
             <About data={about} />
           </section>
