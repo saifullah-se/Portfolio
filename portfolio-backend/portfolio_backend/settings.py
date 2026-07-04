@@ -1,6 +1,7 @@
 import dj_database_url
 from pathlib import Path
 import os
+import mongoengine
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -145,3 +146,7 @@ CKEDITOR_CONFIGS = {
     },
 }
 SILENCED_SYSTEM_CHECKS = ["ckeditor.W001"]
+
+MONGO_URI = os.environ.get('MONGO_URI')
+if MONGO_URI:
+    mongoengine.connect(host=MONGO_URI)
