@@ -7,8 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-dev-key')
 DEBUG = True
 ALLOWED_HOSTS = [
-    'portfolio-backend-p52b.onrender.com',
-    'saifullah-portfolio-b.up.railway.app', 
+    'portfolio-69hb.onrender.com', 
     'localhost', 
     '127.0.0.1'
 ]
@@ -43,14 +42,17 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+# Add your actual Frontend URL here if it's not saifullah-portfolio.onrender.com
 CORS_ALLOWED_ORIGINS = [
     'https://saifullah-portfolio.onrender.com', 
-    'https://saifullah-portfolio-b.up.railway.app',
+    'https://portfolio-69hb.onrender.com',
 ]
 
+# CSRF requires the exact protocol (https://)
 CSRF_TRUSTED_ORIGINS = [
     'https://saifullah-portfolio.onrender.com',
-    'https://saifullah-portfolio-b.up.railway.app',
+    'https://portfolio-69hb.onrender.com',
 ]
 
 ROOT_URLCONF = "portfolio_backend.urls"
