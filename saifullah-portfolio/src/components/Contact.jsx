@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import api from '../api'; // Adjust this path if api.js is in a different folder
 
 export default function Contact({ data }) {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
@@ -10,22 +11,17 @@ export default function Contact({ data }) {
     e.preventDefault()
     if (form.name && form.email && form.message) {
       try {
-        const response = await fetch("https://saifullah-portfolio-b.up.railway.app/api/contact-messages/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        })
+        // Utilizing the centralized Axios instance
+        const response = await api.post("/contact-messages/", form);
 
-        if (response.ok) {
+        if (response.status === 200 || response.status === 201) {
           setSuccess(true)
           setForm({ name: '', email: '', subject: '', message: '' })
 
-          // ✅ hide success message after 3 seconds
+          // ✅ hide success message after 2 seconds
           setTimeout(() => {
             setSuccess(false)
           }, 2000)
-        } else {
-          alert("Something went wrong. Please try again.")
         }
       } catch (error) {
         console.error("Error:", error)
